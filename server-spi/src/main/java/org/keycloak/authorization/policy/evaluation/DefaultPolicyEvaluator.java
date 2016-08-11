@@ -38,7 +38,6 @@ import java.util.Map;
 import java.util.Set;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Consumer;
-import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 /**
@@ -133,21 +132,12 @@ public class DefaultPolicyEvaluator implements PolicyEvaluator {
             return true;
         }
 
-        Resource resourcePermission = permission.getResource();
-        Set<Resource> policyResources = policy.getResources();
-
-        if (resourcePermission != null && !policyResources.isEmpty()) {
-            if (!policyResources.stream().filter(resource -> resource.getId().equals(resourcePermission.getId())).findFirst().isPresent()) {
-                return false;
-            }
-        }
-
         Set<Scope> scopes = new HashSet<>(policy.getScopes());
 
         if (scopes.isEmpty()) {
             Set<Resource> resources = new HashSet<>();
 
-            resources.addAll(policyResources);
+            resources.addAll(policy.getResources());
 
             for (Resource resource : resources) {
                 scopes.addAll(resource.getScopes());
