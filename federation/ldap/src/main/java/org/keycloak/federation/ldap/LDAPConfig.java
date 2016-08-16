@@ -17,6 +17,9 @@
 
 package org.keycloak.federation.ldap;
 
+import java.io.IOException;
+import java.io.Reader;
+import java.io.StringReader;
 import java.util.Collection;
 import java.util.HashSet;
 import java.util.Map;
@@ -109,7 +112,16 @@ public class LDAPConfig {
     }
 
     public Properties getAdditionalConnectionProperties() {
-        // not supported for now
+        String additionalConnectionProperties = config.get("additionalConnectionProperties");
+        if (additionalConnectionProperties != null) {
+            Properties properties = new Properties();
+            try (Reader reader = new StringReader(additionalConnectionProperties)) {
+                properties.load(reader);
+            } catch (IOException e) {
+                throw new RuntimeException(e);
+            }
+            return properties;
+        }
         return null;
     }
 

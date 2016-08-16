@@ -241,6 +241,17 @@
         </fieldset>
 
         <fieldset>
+            <legend><span class="text">{{:: 'optional-settings' | translate}}</span></legend>
+            <div class="form-group">
+                <label class="col-md-2 control-label" for="additionalConnectionProperties">{{:: 'additional-connection-properties' | translate}} </label>
+                <div class="col-md-6">
+                    <textarea class="form-control" ng-model="instance.config.additionalConnectionProperties" id="additionalConnectionProperties" rows=5"></textarea>
+                </div>
+                <kc-tooltip>{{:: 'ldap.additional-connection-properties.tooltip' | translate}}</kc-tooltip>
+            </div>
+        </fieldset>
+
+        <fieldset>
             <legend><span class="text">{{:: 'sync-settings' | translate}}</span></legend>
             <div class="form-group clearfix">
                 <label class="col-md-2 control-label" for="batchSizeForSync">{{:: 'batch-size' | translate}}</label>
